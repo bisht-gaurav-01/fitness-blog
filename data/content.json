@@ -1,0 +1,193 @@
+{
+  "posts": [
+    {
+      "slug": "the-ultimate-guide",
+      "title": "The Ultimate Guide to Full-Body Workouts",
+      "date": "23 January 2025",
+      "heroImage": "/Heroimage.jpg",
+      "author": {
+        "name": "Alex Carter",
+        "avatar": "/Authoravatar.png",
+        "role": "Strength Coach"
+      },
+      "intro": "Discover exercises that target every muscle group, helping you build strength and endurance. Perfect for beginners and seasoned gym-goers alike.",
+      "body": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Aenean commodo ligula eget dolor."
+      ],
+      "highlights": [
+        "With over a decade of experience in the fitness industry, Alex specializes in strength training and functional fitness. Certified by NASM and known for his motivational style, Alex designs workout programs that are both challenging and achievable.His passion lies in helping clients build strength and confidence through personalized training routines. Outside the gym, Alex is an avid runner and enjoys outdoor adventure"
+      ],
+      "about": "With over a decade of experience in the fitness industry, Alex specializes in strength training and functional fitness. Certified by NASM and known for his motivational style, Alex designs workout programs that are both challenging and achievable.His passion lies in helping clients build strength and confidence through personalized training routines. Outside the gym, Alex is an avid runner and enjoys outdoor adventure",
+      "prev": {
+        "title": "5 Tips for Better Cardio Sessions",
+        "slug": "5-tips-cardio"
+      },
+      "next": {
+        "title": "Meal Prep Basics for Gym Enthusiasts",
+        "slug": "meal-prep-basics"
+      }
+    },
+    {
+      "slug": "5-tips-cardio",
+      "title": "5 Tips for Better Cardio Sessions",
+      "date": "09 February 2025",
+      "heroImage": "/Relatedcard2.png",
+      "author": {
+        "name": "Maya Lee",
+        "avatar": "/Authoravatar.png",
+        "role": "Cardio Specialist"
+      },
+      "intro": "Improve your cardio performance with these simple yet effective techniques to maximize stamina and recovery.",
+      "body": [
+        "Start with a clear goal for each session. Alternate between steady-state runs and interval days to avoid plateaus.",
+        "Warm up for at least 8-10 minutes to elevate your heart rate and prepare your joints for impact.",
+        "Track intensity using a perceived effort scale and keep most sessions in the moderate zone.",
+        "Hydrate early, not just mid-workout, and prioritize a balanced recovery meal within an hour."
+      ],
+      "highlights": [
+        "Consistency beats intensity. A slightly shorter workout you finish is better than a long one you skip.",
+        "Add a short mobility sequence after training to keep hips and ankles resilient."
+      ],
+      "about": "Maya specializes in endurance programming and has helped hundreds of runners build sustainable, injury-free training habits.",
+      "prev": {
+        "title": "The Ultimate Guide to Full-Body Workouts",
+        "slug": "the-ultimate-guide"
+      },
+      "next": {
+        "title": "Meal Prep Basics for Gym Enthusiasts",
+        "slug": "meal-prep-basics"
+      }
+    },
+    {
+      "slug": "meal-prep-basics",
+      "title": "Meal Prep Basics for Gym Enthusiasts",
+      "date": "16 February 2025",
+      "heroImage": "/Relatedcard3.jpg",
+      "author": {
+        "name": "Jordan Smith",
+        "avatar": "/Authoravatar.png",
+        "role": "Nutrition Coach"
+      },
+      "intro": "Fuel your workouts with balanced, easy-to-prepare meals. A guide on planning, prepping, and staying consistent.",
+      "body": [
+        "Pick three core proteins, two complex carbs, and a mix of vegetables you enjoy. Rotate sauces to keep variety.",
+        "Batch cook grains and proteins, then store them in portioned containers for grab-and-go meals.",
+        "Keep snacks simple: nuts, fruit, and yogurt provide quick energy without heavy prep."
+      ],
+      "highlights": [
+        "Plan once, eat well all week. A two-hour prep session saves time every day.",
+        "Freeze half your portions to avoid taste fatigue and reduce food waste."
+      ],
+      "about": "Jordan is a sports nutrition coach focused on simple, sustainable habits for active clients.",
+      "prev": {
+        "title": "5 Tips for Better Cardio Sessions",
+        "slug": "5-tips-cardio"
+      },
+      "next": {
+        "title": "Building Core Strength: Exercises and Benefits",
+        "slug": "core-strength"
+      }
+    },
+    {
+      "slug": "core-strength",
+      "title": "Building Core Strength: Exercises and Benefits",
+      "date": "22 February 2025",
+      "heroImage": "/Relatedcard4.jpg",
+      "author": {
+        "name": "Emma Rodriguez",
+        "avatar": "/Authoravatar.png",
+        "role": "Movement Coach"
+      },
+      "intro": "A strong core is essential for stability and injury prevention. Learn the best exercises to enhance your power.",
+      "body": [
+        "Start with anti-rotation drills like Pallof presses to build deep core stability.",
+        "Progress to dynamic movements such as dead bugs, plank variations, and suitcase carries.",
+        "Pair core work with breathing drills to improve posture and overall strength transfer."
+      ],
+      "highlights": [
+        "Train your core in multiple planes to support real-life movement patterns.",
+        "Consistency and control matter more than speed in core training."
+      ],
+      "about": "Emma focuses on foundational strength and mobility, helping athletes move with confidence.",
+      "prev": {
+        "title": "Meal Prep Basics for Gym Enthusiasts",
+        "slug": "meal-prep-basics"
+      },
+      "next": {
+        "title": "The Ultimate Guide to Full-Body Workouts",
+        "slug": "the-ultimate-guide"
+      }
+    }
+  ],
+  "sidebarPosts": [
+    {
+      "image": "/Sidebarimage1.png",
+      "category": "Culinary",
+      "date": "13 Jul 2022",
+      "title": "Two women in local stands are chatting during morning."
+    },
+    {
+      "image": "/Sidebarimage1.png",
+      "category": "Travel",
+      "date": "22 Jul 2022",
+      "title": "Enjoying the sunset on Padar island together"
+    },
+    {
+      "image": "/Sidebarimage3.png",
+      "category": "Travel",
+      "date": "22 Jul 2022",
+      "title": "The lush green surroundings of the campgrounds create a..."
+    }
+  ],
+  "tourGuides": [
+    {
+      "name": "Miranda Rachel",
+      "location": "Jombang, Jawa timur",
+      "rating": "4.0"
+    },
+    {
+      "name": "Danielle Marsh",
+      "location": "Wonodadi, Jawa tengah",
+      "rating": "4.0"
+    },
+    {
+      "name": "Kang Haerin",
+      "location": "Bandung, Jawa barat",
+      "rating": "5.0"
+    }
+  ],
+  "relatedArticles": [
+    {
+      "image": "/Heroimage.jpg",
+      "title": "The Ultimate Guide To Full-Body Workouts",
+      "excerpt": "Discover exercises that target every muscle group, helping you build strength and endurance. Perfect for...",
+      "author": "By Alex Carter",
+      "slug": "the-ultimate-guide"
+    },
+    {
+      "image": "/Relatedcard2.png",
+      "title": "5 Tips For Better Cardio Sessions",
+      "excerpt": "Improve your cardio performance with these simple yet effective techniques to maximize sta...",
+      "author": "By Maya Lee",
+      "slug": "5-tips-cardio"
+    },
+    {
+      "image": "/Relatedcard3.jpg",
+      "title": "Meal Prep Basics For Gym Enthusiasts",
+      "excerpt": "Fuel your workouts with balanced, easy-to-prepare meals. A guide on planning, prepping, and staying cons...",
+      "author": "By Jordan Smith",
+      "slug": "meal-prep-basics"
+    },
+    {
+      "image": "/Relatedcard4.jpg",
+      "title": "Building Core Strength: Exercises And Benefits",
+      "excerpt": "A strong core is essential for stability and injury prevention. Learn the best exercises to enhance your...",
+      "author": "By Emma Rodriguez",
+      "slug": "core-strength"
+    }
+  ]
+}
