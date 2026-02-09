@@ -1,11 +1,9 @@
-
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../components/Layout";
 import content from "../../data/content.json";
-
 
 const EditorPanel = dynamic(() => import("../../components/EditorPanel"), {
   ssr: false,
@@ -31,13 +29,33 @@ const initialFormState = {
   rating: 4,
 };
 
-export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticles }) {
+const emojis = [
+  { icon: "😞", value: 1, label: "Poor" },
+  { icon: "🙁", value: 2, label: "Bad" },
+  { icon: "😐", value: 3, label: "Okay" },
+  { icon: "🙂", value: 4, label: "Good" },
+  { icon: "😊", value: 5, label: "Great" },
+];
+export default function BlogPost({
+  post,
+  sidebarPosts,
+  tourGuides,
+  relatedArticles,
+}) {
   const mountedRef = useRef(true);
   const [showEditor, setShowEditor] = useState(false);
   const [formData, setFormData] = useState(initialFormState);
-  const [touched, setTouched] = useState({ name: false, email: false, comment: false });
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    comment: false,
+  });
   const [submitState, setSubmitState] = useState("idle");
-  const [commentsState, setCommentsState] = useState({ status: "loading", data: [], error: "" });
+  const [commentsState, setCommentsState] = useState({
+    status: "loading",
+    data: [],
+    error: "",
+  });
 
   const loadComments = async () => {
     setCommentsState({ status: "loading", data: [], error: "" });
@@ -48,11 +66,19 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
       }
       const data = await response.json();
       if (mountedRef.current) {
-        setCommentsState({ status: "success", data: data.comments || [], error: "" });
+        setCommentsState({
+          status: "success",
+          data: data.comments || [],
+          error: "",
+        });
       }
     } catch (error) {
       if (mountedRef.current) {
-        setCommentsState({ status: "error", data: [], error: "Unable to load comments." });
+        setCommentsState({
+          status: "error",
+          data: [],
+          error: "Unable to load comments.",
+        });
       }
     }
   };
@@ -70,27 +96,55 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
     return {
       name: formData.name.trim().length < 2 ? "Please enter your name." : "",
       email: !emailValid ? "Please enter a valid email address." : "",
-      comment: formData.comment.trim().length < 10 ? "Please add a longer comment." : "",
+      comment:
+        formData.comment.trim().length < 10
+          ? "Please add a longer comment."
+          : "",
     };
   }, [formData]);
 
   const isValid = !errors.name && !errors.email && !errors.comment;
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setTouched({ name: true, email: true, comment: true });
+
     if (!isValid) {
+      setSubmitState("idle");
       return;
     }
+
     setSubmitState("submitting");
-    window.setTimeout(() => {
+
+    const newComment = {
+      id: Date.now(),
+      name: formData.name.trim(),
+      rating: parseFloat(formData.rating),
+      date: new Date().toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
+      text: formData.comment.trim(),
+    };
+
+    setCommentsState((prev) => ({
+      status: "success",
+      data: [newComment, ...(prev.data || [])],
+      error: "",
+    }));
+
+    setTimeout(() => {
       setSubmitState("success");
       setFormData(initialFormState);
-      window.setTimeout(() => setSubmitState("idle"), 2500);
-    }, 800);
+      setTouched({ name: false, email: false, comment: false });
+      setTimeout(() => setSubmitState("idle"), 2500);
+    }, 1000);
   };
 
-  const editorValue = [post.intro, ...post.body, ...post.highlights].join("\n\n");
+  const editorValue = [post.intro, ...post.body, ...post.highlights].join(
+    "\n\n",
+  );
 
   return (
     <Layout>
@@ -100,17 +154,22 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
 
         <div className="blog__hero">
           <div className="blog__hero-frame">
-            <Image src={post.heroImage} alt={post.title} fill className="blog__hero-image" />
+            <Image
+              src={post.heroImage}
+              alt={post.title}
+              fill
+              className="blog__hero-image"
+            />
           </div>
         </div>
 
         <div className="blog__meta">
-            <div className="blog__author">
-              <div className="blog__avatar">
-                <Image src={post.author.avatar} alt={post.author.name} fill />
-              </div>
-              <span>{post.author.name}</span>
+          <div className="blog__author">
+            <div className="blog__avatar">
+              <Image src={post.author.avatar} alt={post.author.name} fill />
             </div>
+            <span>{post.author.name}</span>
+          </div>
           <span>{post.date}</span>
           <button className="blog__meta-action" type="button">
             Explore more
@@ -128,7 +187,7 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
                 {text}
               </div>
             ))}
- {/* {post.body.map((paragraph, index) => (
+            {/* {post.body.map((paragraph, index) => (
               <p key={`paragraph-${index}`}>{paragraph}</p>
             ))} */}
             <div className="blog__about">
@@ -142,15 +201,25 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
             </div>
 
             <div className="blog__nav">
-              <Link className="blog__nav-button" href={`/blog/${post.prev.slug}`}>
-                <span><i className="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
-</span> Previous
-              </Link>
+              <button className="blog__nav-button" href={`#`}>
+                <span>
+                  <i
+                    className="fa fa-arrow-circle-o-left"
+                    aria-hidden="true"
+                  ></i>
+                </span>{" "}
+                Previous
+              </button>
               <span>{post.prev.title}</span>
-              <Link className="blog__nav-button" href={`/blog/${post.next.slug}`}>
-                Next <span><i className="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
-</span>
-              </Link>
+              <button className="blog__nav-button" href={``}>
+                Next
+                <span>
+                  <i
+                    className="fa fa-arrow-circle-o-right"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </button>
             </div>
 
             <button
@@ -160,19 +229,36 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
             >
               {showEditor ? "Hide editor" : "Edit"}
             </button>
-            {showEditor ? <EditorPanel initialValue={editorValue} onClose={() => setShowEditor(false)} /> : null}
+            {showEditor ? (
+              <EditorPanel
+                initialValue={editorValue}
+                onClose={() => setShowEditor(false)}
+              />
+            ) : null}
 
             <section>
               <h2 className="blog__section-title">Comments</h2>
               {commentsState.status === "loading" ? (
                 <div className="blog__comment-list" aria-live="polite">
                   {[0, 1].map((item) => (
-                    <div key={`skeleton-${item}`} className="blog__comment-skeleton">
+                    <div
+                      key={`skeleton-${item}`}
+                      className="blog__comment-skeleton"
+                    >
                       <div className="skeleton skeleton--avatar" />
                       <div style={{ flex: 1, display: "grid", gap: 8 }}>
-                        <div className="skeleton skeleton--line" style={{ width: "40%" }} />
-                        <div className="skeleton skeleton--line" style={{ width: "60%" }} />
-                        <div className="skeleton skeleton--line" style={{ width: "90%" }} />
+                        <div
+                          className="skeleton skeleton--line"
+                          style={{ width: "40%" }}
+                        />
+                        <div
+                          className="skeleton skeleton--line"
+                          style={{ width: "60%" }}
+                        />
+                        <div
+                          className="skeleton skeleton--line"
+                          style={{ width: "90%" }}
+                        />
                       </div>
                     </div>
                   ))}
@@ -181,7 +267,11 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
               {commentsState.status === "error" ? (
                 <div className="blog__error-box" role="alert">
                   <span>{commentsState.error}</span>
-                  <button className="blog__retry" type="button" onClick={loadComments}>
+                  <button
+                    className="blog__retry"
+                    type="button"
+                    onClick={loadComments}
+                  >
                     Retry
                   </button>
                 </div>
@@ -189,18 +279,43 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
               {commentsState.status === "success" ? (
                 <>
                   {commentsState.data.length === 0 ? (
-                    <p className="blog__muted">No comments yet. Be the first to share your thoughts.</p>
+                    <p className="blog__muted">
+                      No comments yet. Be the first to share your thoughts.
+                    </p>
                   ) : (
                     <div className="blog__comment-list">
                       {commentsState.data.map((comment) => (
                         <div key={comment.id} className="blog__comment">
-                          <div className="blog__comment-avatar">{comment.name[0]}</div>
+                          <div className="blog__comment-avatar">
+                            {comment.name[0]}
+                          </div>
                           <div>
-                            <div className="blog__comment-meta">
+                            {/* <div className="blog__comment-meta">
                               <span>{comment.name}</span>
                               <span>{comment.rating}</span>
+                            </div> */}
+                            <div className="blog__comment-meta">
+                              <span>{comment.name}</span>
+                              <div className="blog__stars-with-number">
+                                <div className="blog__stars">
+                                  {[...Array(5)].map((_, index) => (
+                                    <span
+                                      key={`star-${index}`}
+                                      className={`blog__star ${index < Math.floor(comment.rating) ? "blog__star--filled" : "blog__star--empty"}`}
+                                    >
+                                      ★
+                                    </span>
+                                  ))}
+                                </div>
+                                <span className="blog__rating-number">
+                                  ({comment.rating})
+                                </span>
+                              </div>
                             </div>
-                            <div className="blog__comment-date">{comment.date}</div>
+
+                            <div className="blog__comment-date">
+                              {comment.date}
+                            </div>
                             <p className="blog__comment-text">{comment.text}</p>
                           </div>
                         </div>
@@ -220,19 +335,35 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
                     <input
                       className={`blog__input ${touched.name && errors.name ? "blog__input--error" : ""}`}
                       value={formData.name}
-                      onChange={(event) => setFormData((prev) => ({ ...prev, name: event.target.value }))}
-                      onBlur={() => setTouched((prev) => ({ ...prev, name: true }))}
+                      onChange={(event) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          name: event.target.value,
+                        }))
+                      }
+                      onBlur={() =>
+                        setTouched((prev) => ({ ...prev, name: true }))
+                      }
                       aria-invalid={touched.name && !!errors.name}
                     />
-                    {touched.name && errors.name ? <span className="blog__error">{errors.name}</span> : null}
+                    {touched.name && errors.name ? (
+                      <span className="blog__error">{errors.name}</span>
+                    ) : null}
                   </label>
                   <label className="blog__label">
                     Comment
                     <textarea
                       className={`blog__textarea ${touched.comment && errors.comment ? "blog__textarea--error" : ""}`}
                       value={formData.comment}
-                      onChange={(event) => setFormData((prev) => ({ ...prev, comment: event.target.value }))}
-                      onBlur={() => setTouched((prev) => ({ ...prev, comment: true }))}
+                      onChange={(event) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          comment: event.target.value,
+                        }))
+                      }
+                      onBlur={() =>
+                        setTouched((prev) => ({ ...prev, comment: true }))
+                      }
                       aria-invalid={touched.comment && !!errors.comment}
                       placeholder="Share your thoughts..."
                     />
@@ -246,41 +377,66 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
                   <input
                     className={`blog__input ${touched.email && errors.email ? "blog__input--error" : ""}`}
                     value={formData.email}
-                    onChange={(event) => setFormData((prev) => ({ ...prev, email: event.target.value }))}
-                    onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+                    onChange={(event) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        email: event.target.value,
+                      }))
+                    }
+                    onBlur={() =>
+                      setTouched((prev) => ({ ...prev, email: true }))
+                    }
                     aria-invalid={touched.email && !!errors.email}
                   />
-                  {touched.email && errors.email ? <span className="blog__error">{errors.email}</span> : null}
+                  {touched.email && errors.email ? (
+                    <span className="blog__error">{errors.email}</span>
+                  ) : null}
                 </label>
 
                 <div className="blog__form-footer">
                   <div>
-                    <div className="blog__label">Rate The Usefulness Of The Article</div>
+                    <div className="blog__label">
+                      Rate The Usefulness Of The Article
+                    </div>
+
                     <div className="blog__rating">
-                      {ratingOptions.map((option) => (
-                        <button
-                          key={option.label}
-                          type="button"
-                          aria-label={option.label}
-                          className={`blog__rating-dot ${
-                            formData.rating === option.value ? "blog__rating-dot--active" : ""
-                          }`}
-                          style={{ background: option.color }}
-                          onClick={() => setFormData((prev) => ({ ...prev, rating: option.value }))}
-                        />
-                      ))}
+                      <div className="blog__emoji-rating">
+                        {emojis.map((emoji, index) => (
+                          <button
+                            key={`emoji-${index}`}
+                            type="button"
+                            className={`blog__emoji-btn ${index + 1 <= formData.rating ? "blog__emoji-btn--active" : ""}`}
+                            onClick={() =>
+                              setFormData((prev) => ({
+                                ...prev,
+                                rating: index + 1,
+                              }))
+                            }
+                          >
+                            {emoji.icon}
+                          </button>
+                        ))}
+                      </div>
                       <span className="blog__rating-label">
-                        {ratingOptions.find((option) => option.value === formData.rating)?.label}
+                        {ratingOptions.find(
+                          (opt) => opt.value === formData.rating,
+                        )?.label || "Okay"}
                       </span>
                     </div>
                   </div>
-                  <button className="blog__submit" type="submit" disabled={submitState === "submitting"}>
+                  <button
+                    className="blog__submit"
+                    type="submit"
+                    disabled={submitState === "submitting"}
+                  >
                     {submitState === "submitting" ? "Sending" : "Send"}
                   </button>
                 </div>
 
                 {submitState === "success" ? (
-                  <div className="blog__success">Thanks for your comment! We will review it shortly.</div>
+                  <div className="blog__success">
+                    Thanks for your comment! We will review it shortly.
+                  </div>
                 ) : null}
               </form>
             </section>
@@ -290,7 +446,10 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
             <div className="blog__sidebar-section">
               <h3 className="blog__sidebar-title">Explore more</h3>
               {sidebarPosts.map((item) => (
-                <article className="blog__sidebar-card" key={`${item.title}-${item.date}`}>
+                <article
+                  className="blog__sidebar-card"
+                  key={`${item.title}-${item.date}`}
+                >
                   <div className="blog__sidebar-image">
                     <Image src={item.image} alt={item.title} fill />
                   </div>
@@ -314,18 +473,30 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
                   </div>
                   <div style={{ flex: 1 }}>
                     <div className="blog__guide-name">{guide.name}</div>
-                    <div className="blog__guide-meta"><i className="fa fa-map-marker" aria-hidden="true"></i> &nbsp;
-{guide.location}</div>
+                    <div className="blog__guide-meta">
+                      <i className="fa fa-map-marker" aria-hidden="true"></i>{" "}
+                      &nbsp;
+                      {guide.location}
+                    </div>
                   </div>
-                <div className="blog__guide-rating">
-  <span className="blog__guide-rating-stars">
-    <span className="blog__guide-rating-filled">
-      {Array(5).fill('★').slice(0, Math.floor(guide.rating))}
-    </span>
-  </span>
-  <span>({guide.rating})</span>
-</div>
 
+                  <div className="blog__guide-rating">
+                    <div className="blog__stars-container">
+                      <div className="blog__stars">
+                        {[...Array(5)].map((_, index) => (
+                          <span
+                            key={`gstar-${index}`}
+                            className={`blog__star ${index < Math.floor(guide.rating) ? "blog__star--filled" : "blog__star--empty"}`}
+                          >
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                      <span className="blog__rating-number">
+                        ({guide.rating})
+                      </span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -333,7 +504,6 @@ export default function BlogPost({ post, sidebarPosts, tourGuides, relatedArticl
         </div>
 
         <section className="blog__related">
-          <p className="blog__breadcrumb">Related articles</p>
           <h2 className="blog__related-title">Related articles</h2>
           <div className="blog__related-grid">
             {relatedArticles.map((article) => (
