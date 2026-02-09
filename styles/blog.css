@@ -1555,3 +1555,34 @@
   width: 28px !important;
   margin: 0 !important;
 }
+
+/* 📏 TINY EMOJIS + NATURAL BACKGROUND */
+.blog__emoji-btn,
+.blog__rating-emoji-btn {
+  width: 24px !important;          /* 28px → 24px - Smaller */
+  height: 24px !important;
+  font-size: 14px !important;      /* 18px → 14px - Tiny emojis */
+  border: 1.5px solid #e5e7eb !important;
+  border-radius: 45px !important;
+  background: transparent !important;  /* NO background - natural emoji */
+  backdrop-filter: none !important;
+  
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ACTIVE STATE - Light glow only */
+.blog__emoji-btn--active,
+.blog__rating-emoji-btn.active {
+  background: rgba(251, 191, 36, 0.15) !important;  /* Very light yellow */
+  border-color: #fbbf24 !important;
+  color: inherit !important;  /* Emoji natural color */
+}
+
+/* HOVER - Subtle */
+.blog__emoji-btn:hover,
+.blog__rating-emoji-btn:hover {
+  background: rgba(0,0,0,0.05) !important;
+  border-color: #d1d5db !important;
+}
