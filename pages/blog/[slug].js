@@ -187,9 +187,9 @@ export default function BlogPost({
                 {text}
               </div>
             ))}
-            {/* {post.body.map((paragraph, index) => (
+            {post.body.map((paragraph, index) => (
               <p key={`paragraph-${index}`}>{paragraph}</p>
-            ))} */}
+            ))}
             <div className="blog__about">
               <p className="blog__about-title">About {post.author.name}</p>
               <div className="blog__about-body">
@@ -429,6 +429,7 @@ export default function BlogPost({
                     type="submit"
                     disabled={submitState === "submitting"}
                   >
+                    <i className="fa fa-commenting-o" aria-hidden="true"></i>&nbsp;
                     {submitState === "submitting" ? "Sending" : "Send"}
                   </button>
                 </div>
