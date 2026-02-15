@@ -481,9 +481,7 @@
 }
 
 .blog__sidebar-title {
-  /* font-size: 12px;
-  text-transform: none;
-  letter-spacing: normal; */
+
   text-transform: none;
   letter-spacing: normal;
   color: var(--ink);
@@ -515,10 +513,6 @@
 }
 
 .blog__sidebar-text {
-  /* font-size: 13px; */
-  /* font-weight: 600; */
-  /* color: var(--ink); */
-
   text-transform: none;
   /* letter-spacing: 1px; */
   color: #0e0f10;
@@ -1448,7 +1442,7 @@
   border-top: 1px solid #e5e7eb !important;
 }
 
-/* Rating strip */
+
 .blog__rating-strip {
   flex: 1;
   display: flex;
@@ -1722,7 +1716,6 @@
   border-top: 1px solid #e5e7eb !important;
 }
 
-/* 🔧 SURFACE DUO 540x720px + SIMILAR (520-639px) - PERFECT FIX */
 @media (min-width: 520px) and (max-width: 639px) {
   .layout__header {
     flex-direction: row !important;
@@ -1771,7 +1764,7 @@
     width: 100% !important;
   }
 }
-/* 📱 MOBILE - ULTRA TIGHT SPACING (Screenshot Match) */
+
 @media (max-width: 767px) {
   .blog__sidebar-section {
     gap: 0.5rem !important;
@@ -1818,7 +1811,7 @@
     gap: 0.625rem !important;
   }
 }
-/* 🛑 REMOVE BOTTOM SPACE BELOW RELATED ARTICLES - MOBILE */
+
 @media (max-width: 767px) {
   .blog__related {
     margin-bottom: 0 !important;
@@ -1857,7 +1850,6 @@
   }
 }
 
-/* ☢️ MOBILE BOTTOM SPACE KILLER - 100% FIX */
 @media (max-width: 767px) {
   .blog {
     padding-bottom: 1rem !important;
