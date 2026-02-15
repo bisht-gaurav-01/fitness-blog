@@ -15,11 +15,11 @@ const EditorPanel = dynamic(() => import("../../components/EditorPanel"), {
 });
 
 const ratingOptions = [
-  { label: "Awful", value: 1, color: "#f87171" },
-  { label: "Poor", value: 2, color: "#fb923c" },
-  { label: "Okay", value: 3, color: "#fbbf24" },
-  { label: "Good", value: 4, color: "#a3e635" },
-  { label: "Great", value: 5, color: "#10b981" },
+  { icon: "fa-face-angry", label: "Bad", value: 1.0, color: "#ec4747" },
+  { icon: "fa-face-frown", label: "Average", value: 2.0, color: "#fb923c" },
+  { icon: "fa-face-meh", label: "Normal", value: 3.0, color: "#fbbf24" },
+  { icon: "fa-face-smile", label: "Nice", value: 4.0, color: "#3376f3" },
+  { icon: "fa-face-laugh", label: "Good", value: 5.0, color: "#a3e635" },
 ];
 
 const initialFormState = {
@@ -119,7 +119,7 @@ export default function BlogPost({
     const newComment = {
       id: Date.now(),
       name: formData.name.trim(),
-      rating: parseFloat(formData.rating),
+      rating: Number(formData.rating).toFixed(1), //parseFloat(formData.rating),
       date: new Date().toLocaleDateString("en-GB", {
         day: "numeric",
         month: "short",
@@ -171,9 +171,6 @@ export default function BlogPost({
             <span>{post.author.name}</span>
           </div>
           <span>{post.date}</span>
-          <button className="blog__meta-action" type="button">
-            Explore more
-          </button>
         </div>
 
         <div className="blog__content-grid">
@@ -290,10 +287,6 @@ export default function BlogPost({
                             {comment.name[0]}
                           </div>
                           <div>
-                            {/* <div className="blog__comment-meta">
-                              <span>{comment.name}</span>
-                              <span>{comment.rating}</span>
-                            </div> */}
                             <div className="blog__comment-meta">
                               <span>{comment.name}</span>
                               <div className="blog__stars-with-number">
@@ -365,7 +358,7 @@ export default function BlogPost({
                         setTouched((prev) => ({ ...prev, comment: true }))
                       }
                       aria-invalid={touched.comment && !!errors.comment}
-                      placeholder="Share your thoughts..."
+                      placeholder="Search Anything..."
                     />
                     {touched.comment && errors.comment ? (
                       <span className="blog__error">{errors.comment}</span>
@@ -398,29 +391,47 @@ export default function BlogPost({
                     <div className="blog__label">
                       Rate The Usefulness Of The Article
                     </div>
-
+                    <br />
                     <div className="blog__rating">
                       <div className="blog__emoji-rating">
-                        {emojis.map((emoji, index) => (
+                        {ratingOptions.map((emoji) => (
                           <button
-                            key={`emoji-${index}`}
+                            key={emoji.value}
                             type="button"
-                            className={`blog__emoji-btn ${index + 1 <= formData.rating ? "blog__emoji-btn--active" : ""}`}
+                            aria-label={emoji.label}
+                            className={`blog__emoji-btn ${
+                              formData.rating === emoji.value
+                                ? "blog__emoji-btn--active"
+                                : ""
+                            }`}
                             onClick={() =>
                               setFormData((prev) => ({
                                 ...prev,
-                                rating: index + 1,
+                                rating: emoji.value,
                               }))
                             }
                           >
-                            {emoji.icon}
+                            <i
+                              className={`fa-solid ${emoji.icon}`}
+                              style={{ color: emoji.color }}
+                            ></i>
                           </button>
                         ))}
                       </div>
-                      <span className="blog__rating-label">
-                        {ratingOptions.find(
-                          (opt) => opt.value === formData.rating,
-                        )?.label || "Okay"}
+
+                      <span
+                        className="blog__rating-label"
+                        style={{
+                          backgroundColor: ratingOptions.find(
+                            (e) => e.value === formData.rating,
+                          )?.color,
+                          color: "#ffffff",
+                        }}
+                      >
+                        {
+                          ratingOptions.find((e) => e.value === formData.rating)
+                            ?.label
+                        }
                       </span>
                     </div>
                   </div>
@@ -429,7 +440,8 @@ export default function BlogPost({
                     type="submit"
                     disabled={submitState === "submitting"}
                   >
-                    <i className="fa fa-commenting-o" aria-hidden="true"></i>&nbsp;
+                    <i className="fa fa-commenting-o" aria-hidden="true"></i>
+                    &nbsp;
                     {submitState === "submitting" ? "Sending" : "Send"}
                   </button>
                 </div>
@@ -455,12 +467,15 @@ export default function BlogPost({
                     <Image src={item.image} alt={item.title} fill />
                   </div>
                   <div className="blog__sidebar-meta">
-                    {item.category} | {item.date}
+                    <span style={{ color: "#090909" }}> {item.category}</span>&nbsp;&nbsp;|&nbsp;
+                    <span style={{ color: "#5c6270" }}>{item.date}</span>
                   </div>
                   <div className="blog__sidebar-text">{item.title}</div>
                 </article>
               ))}
             </div>
+            <br></br>
+            <br></br>
 
             <div className="blog__sidebar-section blog__sidebar-box">
               <h3 className="blog__sidebar-title">Tour Guides</h3>

@@ -43,6 +43,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 5 the blog will show on localhost:3000
 
 ## Notes
+
+-- changes updated 
+  - font changes updated
+  - remove responsive spacing 
+  - working comment functionality : 
+   i. fill all field and select comment rate if not select by default nice will show. 
+  ii. click on send 
+ iii. saved comment will be show on top in comment section
+  
+
 1 use next js built in feature
  -  getStaticProps() - Blog post static data
  -  getStaticPaths() - Dynamic routes /blog/[slug]
